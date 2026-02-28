@@ -1,113 +1,144 @@
 // REVIEWED
 
-import type { AssessmentState } from "@/lib/types";
+import type { Answers, FixCheckListState } from "@/lib/types";
 
-const ASSESSMENT_KEY = "wrk_assessment_v1";
-const UNLOCK_KEY = "wrk_report_unlocked_v1";
-const LEAD_KEY = "wrk_lead_v1";
+const CHANGE_EVENT = "lrc:storage";
 
-const isBrowser = () => typeof window !== "undefined";
+const KEY_ANSWERS = "lrc_answers_v1";
+const KEY_CONSENT = "lrc_consent_v1";
+const KEY_EMAIL = "lrc_email_v1";
+const KEY_FIX_CHECKLIST = "lrc_fix_checklist_v1";
+const KEY_UNLOCKED = "lrc_unlocked_v1";
 
-export const storageKeys = {
-  assessment: ASSESSMENT_KEY,
-  unlocked: UNLOCK_KEY,
-  lead: LEAD_KEY,
-} as const;
+const canUseDOM = function canUseDOM() {
+  return typeof window !== "undefined" && typeof localStorage !== "undefined";
+};
 
-export const loadingAssessmentState = (): AssessmentState | null => {
-  if (!isBrowser()) return null;
+const safeJSONParse = function safeJSONParse<T>(
+  value: string | null,
+): T | null {
+  if (!value) return null;
 
   try {
-    const raw = window.localStorage.getItem(ASSESSMENT_KEY);
-
-    if (!raw) return null;
-
-    const parsed = JSON.parse(raw) as AssessmentState;
-
-    if (!parsed || parsed.version !== 1) return null;
-
-    return parsed;
+    return JSON.parse(value) as T;
   } catch {
     return null;
   }
 };
 
-export const savingAssessmentState = (state: AssessmentState) => {
-  if (!isBrowser()) return;
+const emitChange = function emitChange() {
+  if (!canUseDOM()) return;
 
-  try {
-    window.localStorage.setItem(ASSESSMENT_KEY, JSON.stringify(state));
-  } catch {
-    // ignore
-  }
+  window.dispatchEvent(new Event(CHANGE_EVENT));
 };
 
-export const clearingAssessmentState = () => {
-  if (!isBrowser()) return;
+export const subscribeToStorage = function subscribeToStorage(cb: () => void) {
+  if (!canUseDOM()) return () => undefined;
 
-  try {
-    window.localStorage.removeItem(ASSESSMENT_KEY);
-  } catch {
-    // ignore
-  }
+  const handler = function handler() {
+    cb();
+  };
+
+  window.addEventListener(CHANGE_EVENT, handler);
+  window.addEventListener("storage", handler);
+
+  return () => {
+    window.removeEventListener(CHANGE_EVENT, handler);
+    window.removeEventListener("storage", handler);
+  };
 };
 
-export const loadingUnLocked = (): boolean => {
-  if (!isBrowser()) return false;
+export const getAnswers = function getAnswers(): Answers {
+  if (!canUseDOM()) return {};
 
-  try {
-    return window.localStorage.getItem(UNLOCK_KEY) === "true";
-  } catch {
-    return false;
-  }
+  return safeJSONParse<Answers>(localStorage.getItem(KEY_ANSWERS)) ?? {};
 };
 
-export const savingUnLocked = (value: boolean) => {
-  if (!isBrowser()) return;
+export const setAnswers = function setAnswers(answers: Answers) {
+  if (!canUseDOM()) return;
 
-  try {
-    window.localStorage.setItem(UNLOCK_KEY, value ? "true" : "false");
-  } catch {
-    // ignore
-  }
+  localStorage.setItem(KEY_ANSWERS, JSON.stringify(answers));
+
+  emitChange();
 };
 
-export const loadingLeadingRaw = (): string | null => {
-  if (!isBrowser()) return null;
+export const getEmail = function getEmail(): string | null {
+  if (!canUseDOM()) return null;
 
-  try {
-    return window.localStorage.getItem(LEAD_KEY);
-  } catch {
-    return null;
-  }
+  const v = localStorage.getItem(KEY_EMAIL);
+
+  return typeof v === "string" && v.trim().length !== 0 ? v : null;
 };
 
-export const savingLeadingRaw = (raw: string) => {
-  if (!isBrowser()) return;
+export const setEmail = function setEmail(email: string) {
+  if (!canUseDOM()) return;
 
-  try {
-    window.localStorage.setItem(LEAD_KEY, raw);
-  } catch {
-    // ignore
-  }
+  localStorage.setItem(KEY_EMAIL, email.trim());
+
+  emitChange();
 };
 
-export const clearingLead = () => {
-  if (!isBrowser()) return;
+export const getUnLocked = function getUnLocked(): boolean {
+  if (!canUseDOM()) return false;
 
-  try {
-    window.localStorage.removeItem(LEAD_KEY);
-  } catch {
-    // ignore
-  }
+  return localStorage.getItem(KEY_UNLOCKED) === "true";
 };
 
-export const clearingUnLock = () => {
-  if (!isBrowser()) return;
+export const setUnLocked = function setUnLocked(unlocked: boolean) {
+  if (!canUseDOM()) return;
 
-  try {
-    window.localStorage.removeItem(UNLOCK_KEY);
-  } catch {
-    // ignore
-  }
+  localStorage.setItem(KEY_UNLOCKED, unlocked ? "true" : "false");
+
+  emitChange();
+};
+
+export const getConsent = function getConsent(): boolean | null {
+  if (!canUseDOM()) return null;
+
+  const raw = localStorage.getItem(KEY_CONSENT);
+
+  if (raw === null) return null;
+
+  return raw === "true";
+};
+
+export const setConsent = function setConsent(consent: boolean) {
+  if (!canUseDOM()) return;
+
+  localStorage.setItem(KEY_CONSENT, consent ? "true" : "false");
+
+  emitChange();
+};
+
+export const getFixCheckListState =
+  function getFixCheckListState(): FixCheckListState {
+    if (!canUseDOM()) return {};
+
+    return (
+      safeJSONParse<FixCheckListState>(
+        localStorage.getItem(KEY_FIX_CHECKLIST),
+      ) ?? {}
+    );
+  };
+
+export const setFixCheckListState = function setFixCheckListState(
+  state: FixCheckListState,
+) {
+  if (!canUseDOM()) return;
+
+  localStorage.setItem(KEY_FIX_CHECKLIST, JSON.stringify(state));
+
+  emitChange();
+};
+
+export const resetLRCData = function resetLRCData() {
+  if (!canUseDOM()) return;
+
+  localStorage.removeItem(KEY_ANSWERS);
+  localStorage.removeItem(KEY_CONSENT);
+  localStorage.removeItem(KEY_EMAIL);
+  localStorage.removeItem(KEY_FIX_CHECKLIST);
+  localStorage.removeItem(KEY_UNLOCKED);
+
+  emitChange();
 };
