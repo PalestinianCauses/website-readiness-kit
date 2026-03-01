@@ -1,4 +1,4 @@
-// REVIEWED
+// REVIEWED - 01
 
 import type { Answers, CategoryId, FixItem, Priority } from "@/lib/types";
 
@@ -372,9 +372,9 @@ export const buildingFixPlan = function buildingFixPlan(args: {
       id: "clarity.audience",
       category: "clarity",
       priority: "Should",
-      title: "State your audience + niche clearly",
+      title: "State your audience and niche",
       description:
-        "Help visitors self-qualify quickly by naming the niche, industry, or project type you specialize in.",
+        "Name who you help and what type of work you do so visitors can self-qualify quickly.",
       rule: (a) => isYes(a, "clarity.audience"),
     },
     {
@@ -383,7 +383,7 @@ export const buildingFixPlan = function buildingFixPlan(args: {
       priority: "Should",
       title: "Translate features into benefits",
       description:
-        "Say what changes for the customer (speed, bookings, clarity, revenue) rather than only listing deliverables.",
+        "Explain what changes for the customer, not just what you deliver. Be specific about the outcome.",
       rule: (a) => isYes(a, "clarity.benefits"),
     },
     {
@@ -392,7 +392,7 @@ export const buildingFixPlan = function buildingFixPlan(args: {
       priority: "Must",
       title: "Make contact options easy to find",
       description:
-        "Offer at least one low-friction contact method (email, form, calendar). Put it in the header/footer too.",
+        "Offer a low-friction way to reach you, such as email, a short form, or a booking link. Add it to the header and footer.",
       rule: (a) => isYes(a, "clarity.contact-easy"),
     },
     {
@@ -401,7 +401,7 @@ export const buildingFixPlan = function buildingFixPlan(args: {
       priority: "Nice",
       title: "Use familiar navigation labels",
       description:
-        "Keep information architecture (IA) simple: Work, Services, About, Contact. Avoid clever labels that hide meaning.",
+        "Use familiar menu labels such as About, Work, Services, and Contact. Avoid clever names that make people guess.",
       rule: (a) => isYes(a, "clarity.nav-labels"),
     },
     {
@@ -410,23 +410,23 @@ export const buildingFixPlan = function buildingFixPlan(args: {
       priority: "Nice",
       title: "Make the next step and expectations explicit",
       description:
-        "Explain what happens after someone contacts you (timeline, questions, deliverables) to reduce uncertainty.",
+        "Explain what happens after someone contacts you, including timeline, questions, and deliverables. This reduces uncertainty.",
       rule: (a) => isYes(a, "clarity.next-step"),
     },
     {
       id: "clarity.primary-cta",
       category: "clarity",
       priority: "Must",
-      title: "Make one primary CTA obvious",
+      title: "Make one primary call to action obvious",
       description:
-        "Pick a single main action (Book a call / Start a project / Contact). Repeat it consistently across key pages.",
+        "Pick one main action, such as Book a call, Start a project, or Contact. Use it consistently across key pages.",
       rule: (a) => isYes(a, "clarity.primary-cta"),
     },
     {
       id: "clarity.scannable-layout",
       category: "clarity",
       priority: "Should",
-      title: "Improve scannability (headings, spacing, sections)",
+      title: "Improve scannability with headings and spacing",
       description:
         "Use clear section headers, short paragraphs, and visual hierarchy so people can understand you in 15 seconds.",
       rule: (a) => isYes(a, "clarity.scannable-layout"),
@@ -437,7 +437,7 @@ export const buildingFixPlan = function buildingFixPlan(args: {
       priority: "Must",
       title: "Clarify the value proposition above the fold",
       description:
-        "In 1-2 lines, say who it's for and what outcome you deliver. Avoid slogans that don't explain the offer.",
+        "In one or two lines, say who it is for and what outcome you deliver. Avoid slogans that do not explain the offer.",
       rule: (a) => isYes(a, "clarity.value-prop"),
     },
   ]);
@@ -449,16 +449,16 @@ export const buildingFixPlan = function buildingFixPlan(args: {
       priority: "Nice",
       title: "Track key conversion events",
       description:
-        "At minimum: CTA clicks, form submits, and contact intent. You can't improve what you don't measure.",
+        "Track key actions such as call-to-action clicks, form submissions, and booking intent. You can 8not improve what you do not measure.",
       rule: (a) => isYes(a, "conversion.analytics"),
     },
     {
       id: "conversion.cta-placement",
       category: "conversion",
       priority: "Must",
-      title: "Place CTAs where intent peaks",
+      title: "Place calls to action where intent peaks",
       description:
-        "Add CTAs after benefits, in case studies, and at the end of pages—not only in the hero.",
+        "Add calls to action after benefits, inside case studies, and at the end of pages. Do not rely on the hero section alone.",
       rule: (a) => isYes(a, "conversion.cta-placement"),
     },
     {
@@ -476,7 +476,7 @@ export const buildingFixPlan = function buildingFixPlan(args: {
       priority: "Nice",
       title: "Offer a secondary low-commitment option",
       description:
-        "For visitors not ready to book, provide a second path (email capture, pricing PDF, or a short qualifier).",
+        "For visitors not ready to book, offer a second path such as an email capture, a pricing guide, or a short qualifier.",
       rule: (a) => isYes(a, "conversion.lead-capture"),
     },
     {
@@ -494,7 +494,7 @@ export const buildingFixPlan = function buildingFixPlan(args: {
       priority: "Must",
       title: "Fix mobile UX issues",
       description:
-        "Ensure tap targets, spacing, and nav work smoothly on small screens—the majority of traffic for many sites.",
+        "Ensure tap targets, spacing, and navigation work smoothly on small screens. For many sites, mobile is the majority of traffic.",
       rule: (a) => isYes(a, "conversion.mobile-usability"),
     },
     {
@@ -510,9 +510,9 @@ export const buildingFixPlan = function buildingFixPlan(args: {
       id: "conversion.trust-near-cta",
       category: "conversion",
       priority: "Should",
-      title: "Add trust near CTAs",
+      title: "Add trust near calls to action",
       description:
-        "Add proof next to the decision point: testimonials, client counts, guarantees, or clear process steps.",
+        "Place proof near the decision point, such as testimonials, client counts, guarantees, or clear process steps.",
       rule: (a) => isYes(a, "conversion.trust-near-cta"),
     },
   ]);
@@ -522,9 +522,9 @@ export const buildingFixPlan = function buildingFixPlan(args: {
       id: "offers.booking",
       category: "offers",
       priority: "Must",
-      title: "Make booking/contact the obvious end of the offer",
+      title: "End offer pages with a clear next step",
       description:
-        "Add a strong CTA at the end of offer pages and after pricing. Remove uncertainty with a clear next step.",
+        "Add a strong call to action after pricing and at the end of offer pages. Reduce uncertainty by stating the next step clearly.",
       rule: (a) => isYes(a, "offers.booking"),
     },
     {
@@ -540,7 +540,7 @@ export const buildingFixPlan = function buildingFixPlan(args: {
       id: "offers.faq",
       category: "offers",
       priority: "Nice",
-      title: "Answer common objections (FAQ)",
+      title: "Answer common objections",
       description:
         "Handle pricing, revisions, handoff, availability, and communication upfront to reduce back-and-forth.",
       rule: (a) => isYes(a, "offers.faq"),
@@ -569,7 +569,7 @@ export const buildingFixPlan = function buildingFixPlan(args: {
       priority: "Should",
       title: "Add risk-reversal or reassurance",
       description:
-        "Examples: clear cancellation terms, milestone-based payments, or a 'first call is free' policy.",
+        "Examples include clear cancellation terms, milestone-based payments, or a free first call.",
       rule: (a) => isYes(a, "offers.risk-reversal"),
     },
     {
@@ -578,7 +578,7 @@ export const buildingFixPlan = function buildingFixPlan(args: {
       priority: "Should",
       title: "Clarify scope and boundaries",
       description:
-        "List what you do (and don't) take on. This reduces mismatched leads and improves close rates.",
+        "List what you do and what you do not take on. This reduces mismatched leads and improves close rates.",
       rule: (a) => isYes(a, "offers.scope"),
     },
     {
@@ -587,7 +587,7 @@ export const buildingFixPlan = function buildingFixPlan(args: {
       priority: "Nice",
       title: "Add a starting price or clear qualification",
       description:
-        "A 'starting at' price or budget qualifiers filter leads and build trust through transparency.",
+        "A starting price or budget qualifier filters leads and builds trust through transparency.",
       rule: (a) => isYes(a, "offers.starting-price"),
     },
   ]);
@@ -606,7 +606,7 @@ export const buildingFixPlan = function buildingFixPlan(args: {
       id: "proofs.case-studies",
       category: "proofs",
       priority: "Should",
-      title: "Publish 2-4 case studies or project breakdowns",
+      title: "Publish 2 to 4 case studies or project breakdowns",
       description:
         "Show the problem, approach, and result. Even a short teardown builds trust and demonstrates thinking.",
       rule: (a) => isYes(a, "proofs.case-studies"),
@@ -633,7 +633,7 @@ export const buildingFixPlan = function buildingFixPlan(args: {
       id: "proofs.press",
       category: "proofs",
       priority: "Nice",
-      title: "Show community/press signals (if you have them)",
+      title: "Show community or press signals if you have them",
       description:
         "Talks, guest posts, podcasts, open-source, or press mentions create extra credibility with minimal copy.",
       rule: (a) => isYes(a, "proofs.press"),
@@ -644,7 +644,7 @@ export const buildingFixPlan = function buildingFixPlan(args: {
       priority: "Nice",
       title: "Add external reviews or third-party proof",
       description:
-        "If available, link to reviews on platforms people trust (e.g., Clutch, Google Business, app marketplaces).",
+        "If available, link to reviews on trusted platforms such as Clutch, Google Business, or app marketplaces.",
       rule: (a) => isYes(a, "proofs.reviews"),
     },
     {
@@ -653,7 +653,7 @@ export const buildingFixPlan = function buildingFixPlan(args: {
       priority: "Must",
       title: "Add specific testimonials",
       description:
-        "Aim for outcomes and context: 'What changed?' and 'For whom?'. Specificity beats generic praise.",
+        "Aim for outcomes and context. What changed, and for whom. Specificity beats generic praise.",
       rule: (a) => isYes(a, "proofs.testimonials"),
     },
     {
@@ -672,9 +672,9 @@ export const buildingFixPlan = function buildingFixPlan(args: {
       id: "technical.accessibility",
       category: "technical",
       priority: "Must",
-      title: "Fix basic accessibility issues",
+      title: "Fix core accessibility basics",
       description:
-        "Alt text, label associations, contrast, and keyboard navigation improve UX and reduce legal risk.",
+        "Alt text, labels, contrast, and keyboard navigation improve usability and reduce legal risk.",
       rule: (a) => isYes(a, "technical.accessibility"),
     },
     {
@@ -701,7 +701,7 @@ export const buildingFixPlan = function buildingFixPlan(args: {
       priority: "Should",
       title: "Make sure pages are indexable",
       description:
-        "Avoid accidental no-index, broken canonical tags, or robots.txt blocking important pages.",
+        "Avoid accidental noindex, broken canonical tags, or robots.txt blocking important pages.",
       rule: (a) => isYes(a, "technical.indexable"),
     },
     {
@@ -717,9 +717,9 @@ export const buildingFixPlan = function buildingFixPlan(args: {
       id: "technical.open-graph",
       category: "technical",
       priority: "Nice",
-      title: "Add social sharing meta (Open Graph / Twitter)",
+      title: "Add social sharing previews",
       description:
-        "Sharing should show a strong title, description, and image. It's a small change with outsized reach.",
+        "When someone shares a link, show a clear title, description, and image. It is a small change with outsized reach.",
       rule: (a) => isYes(a, "technical.open-graph"),
     },
     {
@@ -735,9 +735,9 @@ export const buildingFixPlan = function buildingFixPlan(args: {
       id: "technical.responsive",
       category: "technical",
       priority: "Must",
-      title: "Confirm responsive layout across break-points",
+      title: "Confirm responsive layout across breakpoints",
       description:
-        "Check small phones, tablets, and large screens. Break-points and font scaling should feel intentional.",
+        "Check small phones, tablets, and large screens. Breakpoints and font scaling should feel intentional.",
       rule: (a) => isYes(a, "technical.responsive"),
     },
   ]);
